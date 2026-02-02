@@ -1,33 +1,22 @@
-:global(body) {
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
+body {
     margin: 0;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Rubik';
     background-color: var(--bg-body);
     color: var(--text-main);
     transition: background-color 0.3s, color 0.3s;
 }
 
 :root {
-    --bg-body: #ffffff;
-    --bg-card: #f3f4f6;
-    --text-main: #1f2937;
-    --primary: #2563eb;
-    --success: #059669;
-    --warning: #d97706;
-    --danger: #dc2626;
-    --border: #e5e7eb;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg-body: #000000;
-        --bg-card: #1c1c1c;
-        --text-main: #ffffff;
-        --primary: #60a5fa;
-        --success: #34d399;
-        --warning: #fbbf24;
-        --danger: #f87171;
-        --border: #333333;
-    }
+    --bg-body: #111111;
+    --bg-card: #1c1c1c;
+    --text-main: #ffffff;
+    --primary: #60a5fa;
+    --success: #34d399;
+    --warning: #fbbf24;
+    --danger: #f87171;
+    --border: #333333;
 }
 
 .container {

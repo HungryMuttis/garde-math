@@ -1,16 +1,17 @@
 <script>
     import { GradeCalculator } from './logic.svelte.js';
     import './styles.css';
+    import Display from '$lib/components/Display.svelte';
 
     const calc = new GradeCalculator();
 </script>
 
 <div class="container">
     <main>
-        <h1>Grade Calculator</h1>
+        <h1>Pažyminatorius</h1>
         
         <div class="input-section">
-            <label for="grades">Enter grades (1-10):</label>
+            <label for="grades">Dabartiniai pažymiai:</label>
             <input 
                 id="grades" 
                 type="text" 
@@ -22,59 +23,30 @@
 
         {#if calc.grades.length > 0}
             <div class="stats-card current">
-                <h2>Current Status</h2>
-                <div class="stat-row">
-                    <span>Average:</span>
-                    <strong>{calc.currentAvg.toFixed(2)}</strong>
-                </div>
-                <div class="stat-row">
-                    <span>Grade:</span>
-                    <strong class="highlight">{calc.currentRounded}</strong>
-                </div>
+                <Display grade="{calc.currentRounded}" avg="{calc.currentAvg.toFixed(2)}" />
             </div>
 
             <div class="results-grid">
                 <div class="stats-card maintain">
-                    <h3>Minimum to Keep Grade</h3>
+                    <h3>Nenusileisti</h3>
                     {#if calc.lowValue}
-                        <div class="stat-row">
-                            <span>Need to get:</span>
-                            <strong class="highlight">{calc.lowValue.grade}</strong>
-                        </div>
-                        <div class="stat-row">
-                            <span>New Average:</span>
-                            <strong>{calc.lowValue.newAvg.toFixed(2)}</strong>
-                        </div>
-                        <p class="subtext">
-                            Resulting Grade: {calc.lowValue.newRounded}
-                        </p>
+                        <Display grade="{calc.lowValue.grade}" avg="{calc.lowValue.newAvg.toFixed(2)}" />
                     {:else}
-                        <p>Even a 10 will cause a drop.</p>
+                        <p>Netgi 10 numes. (Kaip taip sugebėti?)</p>
                     {/if}
                 </div>
 
                 <div class="stats-card jump">
-                    <h3>Minimum to Jump Up</h3>
+                    <h3>Pakilti</h3>
                     {#if calc.highValue}
-                        <div class="stat-row">
-                            <span>Need to get:</span>
-                            <strong class="highlight">{calc.highValue.grade}</strong>
-                        </div>
-                        <div class="stat-row">
-                            <span>New Average:</span>
-                            <strong>{calc.highValue.newAvg.toFixed(2)}</strong>
-                        </div>
-                        <p class="subtext">
-                            Resulting Grade: {calc.highValue.newRounded}
-                        </p>
+                        <Display grade="{calc.highValue.grade}" avg="{calc.highValue.newAvg.toFixed(2)}" />
                     {:else}
-                        <p>A jump is not possible with one grade.</p>
+                        <p>Niekaip :/</p>
                     {/if}
                 </div>
             </div>
 
             <div class="details">
-                <h3>All Possibilities</h3>
                 <div class="tags">
                     {#each calc.scenarios as s}
                         <div class="tag {s.type}">
