@@ -11,12 +11,11 @@
         <h1>Pažyminatorius</h1>
         
         <div class="input-section">
-            <label for="grades">Dabartiniai pažymiai:</label>
             <input 
                 id="grades" 
                 type="text" 
                 bind:value={calc.inputString} 
-                placeholder="e.g. 8 9 10 5" 
+                placeholder="10 10 9 2 10 9" 
                 autocomplete="off"
             />
         </div>
