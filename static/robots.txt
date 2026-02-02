@@ -1,0 +1,3 @@
+# what can you possibly find here? :skull:
+User-agent: *
+Disallow:
