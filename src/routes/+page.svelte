@@ -22,7 +22,7 @@
 
         {#if calc.grades.length > 0}
             <div class="stats-card current">
-                <Display grade="{calc.currentRounded}" avg="{calc.currentAvg.toFixed(2)}" />
+                <Display grade="{calc.rounded}" avg="{calc.avg.toFixed(2)}" />
             </div>
 
             <div class="results-grid">
@@ -40,7 +40,11 @@
                     {#if calc.highValue}
                         <Display grade="{calc.highValue.grade}" avg="{calc.highValue.newAvg.toFixed(2)}" />
                     {:else}
-                        <p>Niekaip :/</p>
+                        {#if calc.rounded == 10}
+                            <p>Apseisi</p>
+                        {:else}
+                            <p>Niekaip :/</p>
+                        {/if}
                     {/if}
                 </div>
             </div>
@@ -57,6 +61,13 @@
                     {/each}
                 </div>
             </div>
+
+            {#if calc.rounded < 10 && calc.tensToTen > 1}
+                <div class="stats-card tensToTen">
+                    <h3>Dešimtukų iki Dešimt</h3>
+                    <Display grade="10(x{calc.tensToTen})" avg="{calc.tensNewAvg.toFixed(2)}" />
+                </div>
+            {/if}
         {/if}
     </main>
 </div>

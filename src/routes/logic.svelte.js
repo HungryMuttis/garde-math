@@ -8,24 +8,27 @@ export class GradeCalculator {
     });
 
     // Derived: Stats
-    currentSum = $derived(this.grades.reduce((a, b) => a + b, 0));
-    currentCount = $derived(this.grades.length);
-    currentAvg = $derived(this.currentCount > 0 ? this.currentSum / this.currentCount : 0);
-    currentRounded = $derived(Math.round(this.currentAvg));
+    sum = $derived(this.grades.reduce((a, b) => a + b, 0));
+    count = $derived(this.grades.length);
+    avg = $derived(this.count > 0 ? this.sum / this.count : 0);
+    rounded = $derived(Math.round(this.avg));
 
     scenarios = $derived.by(() => {
-        if (this.currentCount === 0) return [];
+        if (this.count === 0) return [];
         let results = [];
         for (let g = 1; g <= 10; g++) {
-            const newAvg = (this.currentSum + g) / (this.currentCount + 1);
+            const newAvg = (this.sum + g) / (this.count + 1);
             const newRounded = Math.round(newAvg);
-            let type = newRounded > this.currentRounded ? 'jump' : 
-                       (newRounded === this.currentRounded ? 'maintain' : 'drop');
+            let type = newRounded > this.rounded ? 'jump' :
+                       (newRounded === this.rounded ? 'maintain' : 'drop');
             results.push({ grade: g, newAvg, newRounded, type });
         }
         return results;
     });
 
-    lowValue = $derived(this.scenarios.find(s => s.newRounded >= this.currentRounded));
+    lowValue = $derived(this.scenarios.find(s => s.newRounded >= this.rounded));
     highValue = $derived(this.scenarios.find(s => s.type === 'jump'));
+
+    tensToTen = $derived(Math.ceil(2 * this.count * (9.5 - this.avg)));
+    tensNewAvg = $derived((this.tensToTen * 10 + this.sum) / (this.tensToTen + this.count));
 }
